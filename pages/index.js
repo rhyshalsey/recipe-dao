@@ -1,5 +1,7 @@
-import Head from "next/head";
-
 export default function Home() {
-  return <h1>Hello</h1>;
+  return (
+    <div className="landing">
+      <h1>Welcome to My DAO</h1>
+    </div>
+  );
 }
