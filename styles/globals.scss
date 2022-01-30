@@ -5,7 +5,6 @@ body {
   font-family: Inter, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #7700ee;
   color: #fff;
   overflow-x: hidden;
 }
@@ -13,6 +12,8 @@ body {
   min-height: 100vh;
   display: flex;
 }
+
+/* Components */
 
 a {
   color: inherit;
@@ -74,5 +75,30 @@ button {
   &:disabled {
     opacity: 0.8;
     pointer-events: none;
+  }
+}
+
+/* Application wide elements */
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/images/backgrounds/recipe1.jpg");
+  background-position: center;
+  background-size: cover;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    z-index: 1;
   }
 }

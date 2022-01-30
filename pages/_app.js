@@ -30,6 +30,9 @@ function MyApp({ Component, pageProps }) {
         <meta name="theme-color" content="#ffffff" />
         <link rel="shortcut icon" href="/android-chrome-256x256" />
       </Head>
+
+      <div className="background-image" />
+
       <Component {...pageProps} />
     </>
   );
