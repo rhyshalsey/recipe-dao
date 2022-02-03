@@ -7,17 +7,24 @@
   padding: 1rem;
 }
 
+.landing {
+  min-height: calc(100% - 20px);
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
 .landing,
 .connect-wallet,
 .mint-nft,
 .member-page {
   flex-direction: column;
-  width: 960px;
-  max-width: calc(100% - 1rem);
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  margin: auto;
+  max-width: 1024px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 10px auto;
   align-content: center;
+  align-items: center;
   display: flex;
   text-align: center;
 }
