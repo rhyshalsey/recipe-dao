@@ -1,7 +1,7 @@
-import { ThirdwebSDK } from "@3rdweb/sdk";
-import { ethers } from "ethers";
+const { ThirdwebSDK } = require("@3rdweb/sdk");
+const { ethers } = require("ethers");
 
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
 
 if (!process.env.PRIVATE_KEY || process.env.PRIVATE_KEY == "") {
@@ -34,6 +34,6 @@ const sdk = new ThirdwebSDK(
   }
 })();
 
-export default sdk;
+module.exports = sdk;
 
 //  0xE6A94118eDEb731386Ccc93618171410BaAb422c

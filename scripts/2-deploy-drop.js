@@ -1,6 +1,6 @@
-import { ethers } from "ethers";
-import sdk from "./1-initialize-sdk.js";
-import { readFileSync } from "fs";
+const { ethers } = require("ethers");
+const sdk = require("./1-initialize-sdk.js");
+const { readFileSync } = require("fs");
 
 const app = sdk.getAppModule("0xE6A94118eDEb731386Ccc93618171410BaAb422c");
 
