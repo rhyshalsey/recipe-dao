@@ -7,7 +7,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "type": "module",
   "dependencies": {
     "@3rdweb/hooks": "^1.6.0",
     "@3rdweb/sdk": "^1.27.1",
