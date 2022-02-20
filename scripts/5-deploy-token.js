@@ -19,4 +19,5 @@ const app = sdk.getAppModule("0xE6A94118eDEb731386Ccc93618171410BaAb422c");
   }
 })();
 
+// Token module address
 // 0x8cE5E9253D766dfBdA73284793780EC43e063a7d

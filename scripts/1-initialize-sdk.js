@@ -36,4 +36,5 @@ const sdk = new ThirdwebSDK(
 
 module.exports = sdk;
 
+// App module address
 //  0xE6A94118eDEb731386Ccc93618171410BaAb422c
