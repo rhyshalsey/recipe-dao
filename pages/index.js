@@ -1,11 +1,17 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 import { useWeb3 } from "@3rdweb/hooks";
 import { ThirdwebSDK } from "@3rdweb/sdk";
-import { useCallback, useEffect, useState } from "react";
+import { ethers } from "ethers";
 
 const sdk = new ThirdwebSDK("rinkeby");
 
 const bundleDropModule = sdk.getBundleDropModule(
   "0x85e27823CdD49cBf4cDC3F6C00776E1C3CD48737"
+);
+
+const tokenModule = sdk.getTokenModule(
+  "0x8cE5E9253D766dfBdA73284793780EC43e063a7d"
 );
 
 export default function Home() {
@@ -18,6 +24,48 @@ export default function Home() {
 
   const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
+
+  const [memberTokenAmounts, setMemberTokenAmounts] = useState({});
+  const [memberAddresses, setMemberAddresses] = useState([]);
+
+  const memberList = useMemo(
+    () =>
+      memberAddresses.map((address) => ({
+        address,
+        tokenAmount: ethers.utils.formatUnits(
+          memberTokenAmounts[address] || 0,
+          18
+        ),
+      })),
+    [memberAddresses, memberTokenAmounts]
+  );
+
+  const getNftMemberAddresses = async () => {
+    try {
+      const addresses = await bundleDropModule.getAllClaimerAddresses("0");
+      setMemberAddresses(addresses);
+    } catch (error) {
+      console.error("Unable to get NFT members list");
+    }
+  };
+
+  const getMemberTokenBalances = async () => {
+    try {
+      const holderBalances = await tokenModule.getAllHolderBalances();
+      setMemberTokenAmounts(holderBalances);
+    } catch (error) {
+      console.error("Unable to get token holder balances", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!hasClaimedNFT) {
+      return;
+    }
+
+    getNftMemberAddresses();
+    getMemberTokenBalances();
+  }, [hasClaimedNFT]);
 
   useEffect(() => {
     sdk.setProviderOrSigner(signer);
@@ -95,6 +143,33 @@ export default function Home() {
     <div className="member-page">
       <h1>RecipeDAO member page</h1>
       <p>Congratulations on being a member</p>
+
+      <div>
+        <h2>Member list</h2>
+        <table className="card">
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Token Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {memberList.map((member) => {
+              return (
+                <tr key={member.address}>
+                  <td>{shortenAddress(member.address)}</td>
+                  <td>{member.tokenAmount}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
+
+// Shorten and obfuscate wallet address
+const shortenAddress = (addr) => {
+  return addr.substring(0, 6) + "..." + addr.substring(addr.length - 4);
+};
